@@ -1,11 +1,19 @@
 import { StyleSheet } from "react-native";
 
 export default globalStyles = StyleSheet.create({
-  container: {
-    backgroundColor: "lightblue",
+  containerHome: {
+    // backgroundColor: "lightblue",
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  },
+  containerPhoto: {
+    // backgroundColor: "lightblue",
+    flex: 1,
+  },
+  container: {
+    // backgroundColor: "lightblue",
+    flex: 1,
+    // justifyContent: "center",
+    // alignItems: "center",
   },
   infoContainer: {
     width: "100%",

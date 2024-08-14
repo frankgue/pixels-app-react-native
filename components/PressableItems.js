@@ -15,7 +15,7 @@ const PressableItems = ({ item, handleNavigate }) => {
       <Image style={globalStyles.profileImg} source={{ uri: item.img }} />
       <View style={globalStyles.infoContainer}>
         <Text style={globalStyles.infos}>{item.country}</Text>
-        <Text style={globalStyles.infos}>{item.totalImg}</Text>
+        <Text style={globalStyles.infos}>{item.photos.length}</Text>
       </View>
     </Pressable>
   );

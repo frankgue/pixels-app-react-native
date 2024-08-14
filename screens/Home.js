@@ -1,51 +1,31 @@
-import React from "react";
-import { FlatList, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 import Colors from "../styles/Colors";
 import PressableItems from "../components/PressableItems";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import MaterialIconsHeader from "../components/MaterialIconsHeader";
 import createNativeStackNavigator from "@react-navigation/native-stack/src/navigators/createNativeStackNavigator";
+import { useSelector } from "react-redux";
+import NoData from "./../components/NoData";
+import globalStyles from "./../styles/AppStyles";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Settings from "../components/Settings";
 
 const Stack = createNativeStackNavigator();
-const Home = ({ navigation }) => {
-  const DATA = [
-    {
-      id: "1",
-      name: "Emma",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam",
-      country: "Allemagne",
-      totalImg: 3,
-      img: "https://cdn.pixabay.com/photo/2017/12/17/08/44/girl-3023853_960_720.jpg",
-      favColor: "blueviolet",
-    },
-    {
-      id: "2",
-      name: "Marcel",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam",
-      country: "France",
-      totalImg: 5,
-      img: "https://cdn.pixabay.com/photo/2018/04/27/03/50/portrait-3353699_960_720.jpg",
-      favColor: "firebrick",
-    },
-    {
-      id: "3",
-      name: "Diana",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam",
-      country: "Espagne",
-      totalImg: 4,
-      img: "https://cdn.pixabay.com/photo/2019/08/13/05/39/girl-4402542_960_720.jpg",
-      favColor: "olive",
-    },
-    {
-      id: "4",
-      name: "Diego",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam",
-      country: "Italie",
-      totalImg: 5,
-      img: "https://cdn.pixabay.com/photo/2017/03/24/18/59/face-2171923_960_720.jpg",
-      favColor: "orangered",
-    },
-  ];
+const Home = ({ navigation, route }) => {
+  useEffect(() => {
+    navigation.setParams({ handleModal: handleSettingsModal });
+  }, [handleSettingsModal]);
+
+  const selectedCategories = useSelector(
+    (state) => state.users.selectedCategories
+  );
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  // const handleModal = route.params.handleModal;
+
+  // console.log(route.params.handleModal);
 
   navigation.setOptions({
     title: "Acceuil",
@@ -57,6 +37,15 @@ const Home = ({ navigation }) => {
       fontWeight: "italic",
       fontFamily: "InriaSans_700Bold_Italic",
     },
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={MaterialIconsHeader}>
+        <Item
+          title="settings"
+          iconName="settings"
+          onPress={handleSettingsModal}
+        />
+      </HeaderButtons>
+    ),
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={MaterialIconsHeader}>
         <Item
@@ -72,26 +61,35 @@ const Home = ({ navigation }) => {
     return (
       <PressableItems
         item={item}
-        handleNavigate={() =>
-          navigation.navigate("Portofolio", {
-            params: {
-              name: item.name,
-              country: item.country,
-              totalImg: item.totalImg,
-              favColor: item.favColor,
-            },
-          })
-        }
+        handleNavigate={() => navigation.navigate("Portofolio", item)}
       />
     );
   };
 
+  const handleSettingsModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
   return (
-    <FlatList
-      data={DATA}
-      renderItem={renderProfiles}
-      keyExtractor={(item) => item.id}
-    />
+    <View style={globalStyles.container}>
+      <Modal visible={modalVisible} animationType="slide">
+        <View style={styles.modalBody}>
+          <MaterialIcons
+            name="close"
+            size={30}
+            style={styles.modalClose}
+            onPress={handleSettingsModal}
+          />
+          <Settings />
+        </View>
+      </Modal>
+
+      <FlatList
+        data={selectedCategories}
+        renderItem={renderProfiles}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
   );
 };
 
@@ -106,7 +104,7 @@ const HomeStackNavigator = () => {
         name="Home"
         component={Home}
         options={{
-          title: "Accueil", //Set Header Title
+          title: "ACCUEIL", //Set Header Title
           headerStyle: {
             backgroundColor: "#f4511e", //Set Header color
           },
@@ -120,4 +118,20 @@ const HomeStackNavigator = () => {
   );
 };
 
-export default HomeStackNavigator;
+const styles = StyleSheet.create({
+  modalBody: {
+    flex: 1,
+    backgroundColor: Colors.ghost,
+    marginVertical: 20,
+    padding: 20,
+    alignSelf: "center",
+    borderRadius: 10,
+    width: "90%",
+  },
+  modalClose: {
+    alignSelf: "flex-end",
+  },
+});
+
+export default Home;
+// export default Home;

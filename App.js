@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -9,15 +9,14 @@ import {
   InriaSans_700Bold,
   InriaSans_700Bold_Italic,
 } from "@expo-google-fonts/inria-sans";
-import Home from "./screens/Home";
-import Portofolio from "./screens/Portofolio";
-import Photo from "./screens/Photo";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Faq from "./screens/Faq";
-import HomeStackNavigator from "./screens/Home";
-import Colors from "./styles/Colors";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import DrawerNav from "./routes/DrawerNav";
+import BottomTabNav from "./routes/BottomTabNav";
+import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -38,84 +37,19 @@ export default function App() {
     );
   }
 
-  const Stack = createNativeStackNavigator();
-  const Drawer = createDrawerNavigator();
-
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
     return (
-      <NavigationContainer>
-        <Drawer.Navigator
-          screenOptions={{
-            drawerStyle: {
-              backgroundColor: Colors.lightBrown, //Set Drawer background
-              width: 250, //Set Drawer width
-            },
-            headerStyle: {
-              backgroundColor: "#f4511e", //Set Header color
-            },
-            headerTintColor: "#fff", //Set Header text color
-            headerTitleStyle: {
-              fontWeight: "bold", //Set Header text style
-            },
-          }}
-          initialRouteName="Home"
-        >
-          <Drawer.Screen name="Home" component={HomeStackNavigator} />
-          <Drawer.Screen
-            name="Portofolio"
-            component={Portofolio}
-            options={{
-              title: "Portofolio", //Set Header Title
-              headerStyle: {
-                // backgroundColor: "#f4511e", //Set Header color
-              },
-              headerTintColor: "#fff", //Set Header text color
-              headerTitleStyle: {
-                fontWeight: "bold", //Set Header text style
-              },
-            }}
-          />
-          <Drawer.Screen
-            name="Photo"
-            component={Photo}
-            options={{
-              title: "Photo", //Set Header Title
-              headerStyle: {
-                // backgroundColor: "#f4511e", //Set Header color
-              },
-              headerTintColor: "#fff", //Set Header text color
-              headerTitleStyle: {
-                fontWeight: "bold", //Set Header text style
-              },
-            }}
-          />
-          <Drawer.Screen
-            name="Faq"
-            component={Faq}
-            options={{
-              title: "Faq", //Set Header Title
-              headerStyle: {
-                // backgroundColor: "#f4511e", //Set Header color
-              },
-              headerTintColor: "#fff", //Set Header text color
-              headerTitleStyle: {
-                fontWeight: "bold", //Set Header text style
-              },
-            }}
-          />
-        </Drawer.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <GestureHandlerRootView>
+          <NavigationContainer>
+            <BottomTabNav />
+            {/* <DrawerNav /> */}
+          </NavigationContainer>
+        </GestureHandlerRootView>
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
