@@ -3,8 +3,12 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import globalStyles from "./../styles/AppStyles";
 import Colors from "../styles/Colors";
 import CustomSwitch from "./CustomSwitch";
+import { useDispatch } from "react-redux";
+import { setCategorySettings } from "./../redux/actions/actionSettings";
 
-const Settings = () => {
+const Settings = ({ closeModal }) => {
+  const dispatch = useDispatch();
+
   const [isAnimals, setIsAnimals] = useState(true);
   const [isTravel, setIsTravel] = useState(true);
   const [isCars, setIsCars] = useState(true);
@@ -15,8 +19,8 @@ const Settings = () => {
       travel: isTravel,
       cars: isCars,
     };
-
-    console.log(savedSettings);
+    dispatch(setCategorySettings(savedSettings));
+    closeModal();
   }, [isAnimals, isTravel, isCars]);
 
   return (

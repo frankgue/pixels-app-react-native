@@ -1,15 +1,11 @@
 import React, { useCallback, useEffect } from "react";
 import { Alert, Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import globalStyles from "./../styles/AppStyles";
 import Colors from "../styles/Colors";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import MaterialIconsHeader from "../components/MaterialIconsHeader";
-import createNativeStackNavigator from "@react-navigation/native-stack/src/navigators/createNativeStackNavigator";
 import TouchageImage from "../components/TouchageImage";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelection } from "./../redux/actions/actionSelection";
-
-const Stack = createNativeStackNavigator();
 
 const Portofolio = ({ route, navigation }) => {
   const favColor = route.params.favColor;

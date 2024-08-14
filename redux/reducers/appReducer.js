@@ -1,4 +1,4 @@
-import { SET_SELECTION } from "../constants";
+import { SET_SELECTION, SET_SETTINGS } from "../constants";
 import { DATA } from "./../../data/usersData";
 const initialState = {
   users: DATA,
@@ -21,6 +21,20 @@ const appReducer = (state = initialState, action) => {
         const user = state.users.find((user) => user.id === action.userId);
         return { ...state, selectedUsers: state.selectedUsers.concat(user) };
       }
+    case SET_SETTINGS:
+      const usedSettings = action.settings;
+      const selectedUsersByCategory = state.users.filter((user) => {
+        if (usedSettings.animals && user.category === "animals") {
+          return true;
+        }
+        if (usedSettings.travel && user.category === "travel") {
+          return true;
+        }
+        if (usedSettings.cars && user.category === "cars") {
+          return true;
+        }
+      });
+      return { ...state, selectedCategories: selectedUsersByCategory };
     default:
       return state;
   }

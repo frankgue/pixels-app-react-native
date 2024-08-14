@@ -80,7 +80,7 @@ const Home = ({ navigation, route }) => {
             style={styles.modalClose}
             onPress={handleSettingsModal}
           />
-          <Settings />
+          <Settings closeModal={handleSettingsModal} />
         </View>
       </Modal>
 
