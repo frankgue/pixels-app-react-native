@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, Platform, StyleSheet } from "react-native";
+import Colors from "./Colors";
+
 
 export default globalStyles = StyleSheet.create({
   containerHome: {
@@ -31,9 +33,12 @@ export default globalStyles = StyleSheet.create({
     padding: 9,
     fontFamily: "InriaSans_700Bold",
   },
+  newStyle: {
+    fontSize: 35, 
+    color: Colors.lightBrown
+  },
   profileImg: {
-    width: 350,
-    height: 350,
+    width: "100%",
     borderRadius: 14,
   },
   profileItem: {
@@ -43,5 +48,8 @@ export default globalStyles = StyleSheet.create({
   text: {
     fontFamily: "InriaSans_700Bold_Italic",
     fontSize: 25,
+  },
+  imgContainer: {
+    width: "100%",
   },
 });

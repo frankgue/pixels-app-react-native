@@ -1,8 +1,10 @@
 import React from "react";
-import { Text } from "react-native";
+import { Dimensions, Text } from "react-native";
 import { ImageBackground } from "react-native";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Colors from "../styles/Colors";
+
+const screenHeight = Dimensions.get("window").height;
 
 const TouchageImage = ({ onSelectPhoto, imgUrl, imgTitle }) => {
   return (
@@ -21,7 +23,7 @@ const TouchageImage = ({ onSelectPhoto, imgUrl, imgTitle }) => {
 const styles = StyleSheet.create({
   photoContainer: {
     width: "100%",
-    height: 350,
+    height: screenHeight > 600 ? 350 : 250,
     marginBottom: 19,
   },
   bgPhoto: {
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
   },
   photoTitle: {
     backgroundColor: "rgba(0,0,0,0.4)",
-    padding: 15,
+    padding: screenHeight > 600 ? 15 : 9,
   },
   photoTitleText: {
     fontFamily: "InriaSans_400Regular",

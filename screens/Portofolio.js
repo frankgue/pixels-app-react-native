@@ -1,5 +1,13 @@
 import React, { useCallback, useEffect } from "react";
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Colors from "../styles/Colors";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import MaterialIconsHeader from "../components/MaterialIconsHeader";
@@ -71,8 +79,17 @@ const Portofolio = ({ route, navigation }) => {
     navigation.navigate("Photo", photo);
   };
 
+  // if (Dimensions.get("window").height < 600) {
+  //   alert("Votre smartPhone n'est pas compatible");
+
+  //   return (
+  //     <Text style={{ textAlign: "center", marginTop: 20 }}>
+  //       Oups, votre telephone n'est pas compatible
+  //     </Text>
+  //   );
+  // }
+
   return (
-    // style={globalStyles.container}
     <ScrollView>
       <View
         style={{
@@ -88,16 +105,15 @@ const Portofolio = ({ route, navigation }) => {
         <Text style={styles.titleBioText}>Bio: </Text>
         <Text style={styles.textBio}>Bio{description}</Text>
       </View>
-      <View>
-        {photoArray.map((photo) => (
-          <TouchageImage
-            key={photo.id}
-            imgUrl={photo.url}
-            imgTitle={photo.title}
-            onSelectPhoto={() => selectPhoto(photo)}
-          />
-        ))}
-      </View>
+
+      {photoArray.map((photo) => (
+        <TouchageImage
+          key={photo.id}
+          imgUrl={photo.url}
+          imgTitle={photo.title}
+          onSelectPhoto={() => selectPhoto(photo)}
+        />
+      ))}
     </ScrollView>
   );
 };
@@ -139,7 +155,7 @@ const styles = StyleSheet.create({
   },
   textBio: {
     padding: 9,
-    fontSize: 20,
+    fontSize: Dimensions.get("window").height > 600 ? 20 : 17,
     fontFamily: "InriaSans_700Bold",
   },
 });
