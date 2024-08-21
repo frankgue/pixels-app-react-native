@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, Text } from "react-native";
+import { Dimensions, SafeAreaView, Text } from "react-native";
 import { ImageBackground } from "react-native";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Colors from "../styles/Colors";
@@ -12,7 +12,9 @@ const TouchageImage = ({ onSelectPhoto, imgUrl, imgTitle }) => {
       <TouchableOpacity onPress={onSelectPhoto}>
         <ImageBackground source={{ uri: imgUrl }} style={styles.bgPhoto}>
           <View style={styles.photoTitle}>
-            <Text style={styles.photoTitleText}>{imgTitle}</Text>
+            <SafeAreaView edges={["left", "right"]}>
+              <Text style={styles.photoTitleText}>{imgTitle}</Text>
+            </SafeAreaView>
           </View>
         </ImageBackground>
       </TouchableOpacity>

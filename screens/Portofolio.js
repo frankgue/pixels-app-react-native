@@ -14,6 +14,7 @@ import MaterialIconsHeader from "../components/MaterialIconsHeader";
 import TouchageImage from "../components/TouchageImage";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelection } from "./../redux/actions/actionSelection";
+import { SafeAreaView } from "react-native";
 
 const Portofolio = ({ route, navigation }) => {
   const favColor = route.params.favColor;
@@ -101,10 +102,12 @@ const Portofolio = ({ route, navigation }) => {
 
         <Text style={styles.profileName}>{name}</Text>
       </View>
-      <View style={styles.profileDescription}>
-        <Text style={styles.titleBioText}>Bio: </Text>
-        <Text style={styles.textBio}>Bio{description}</Text>
-      </View>
+      <SafeAreaView style={styles.profileDescription}>
+        <View>
+          <Text style={styles.titleBioText}>Bio: </Text>
+          <Text style={styles.textBio}>Bio{description}</Text>
+        </View>
+      </SafeAreaView>
 
       {photoArray.map((photo) => (
         <TouchageImage
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
   },
   profileDescription: {
     backgroundColor: Colors.ghost,
-    padding: 15,
+    padding: 10,
     fontSize: 25,
     fontFamily: "InriaSans_400Regular",
   },

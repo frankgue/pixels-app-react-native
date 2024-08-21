@@ -1,7 +1,6 @@
 import { Dimensions, Platform, StyleSheet } from "react-native";
 import Colors from "./Colors";
 
-
 export default globalStyles = StyleSheet.create({
   containerHome: {
     // backgroundColor: "lightblue",
@@ -34,8 +33,8 @@ export default globalStyles = StyleSheet.create({
     fontFamily: "InriaSans_700Bold",
   },
   newStyle: {
-    fontSize: 35, 
-    color: Colors.lightBrown
+    fontSize: 35,
+    color: Colors.lightBrown,
   },
   profileImg: {
     width: "100%",
@@ -51,5 +50,25 @@ export default globalStyles = StyleSheet.create({
   },
   imgContainer: {
     width: "100%",
+  },
+  smallDeviceContainer: {
+    flexDirection: "row",
+    width: "100%",
+  },
+  smallImgContainer: {
+    width: "70%",
+  },
+  infoContainerSmall: {
+    flexGrow: 1,
+    paddingLeft: 10,
+    alignSelf: "flex-start",
+  },
+  titleTextSmall: {
+    fontSize: 25,
+    fontFamily: "InriaSans_700Bold",
+    marginBottom: 10,
+  },
+  infosSmall: {
+    marginBottom: 9,
   },
 });

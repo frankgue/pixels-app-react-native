@@ -1,6 +1,6 @@
 import React from "react";
 import createNativeStackNavigator from "@react-navigation/native-stack/src/navigators/createNativeStackNavigator";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import globalStyles from "./../styles/AppStyles";
 import { ScrollView } from "react-native";
 
@@ -40,11 +40,13 @@ const Photo = ({ route, navigation }) => {
   return (
     <ScrollView style={globalStyles.containerPhoto}>
       <Image style={styles.selectedImage} source={{ uri: url }} />
-      <View style={styles.photoDescription}>
-        <Text style={globalStyles.titleText}>{title}</Text>
-        <Text style={styles.textDescription}>{photoDesc}</Text>
-        <Text style={styles.textDescription}>{photoDesc}</Text>
-      </View>
+      <SafeAreaView edges={["left", "right"]}>
+        <View style={styles.photoDescription}>
+          <Text style={globalStyles.titleText}>{title}</Text>
+          <Text style={styles.textDescription}>{photoDesc}</Text>
+          <Text style={styles.textDescription}>{photoDesc}</Text>
+        </View>
+      </SafeAreaView>
     </ScrollView>
   );
 };
